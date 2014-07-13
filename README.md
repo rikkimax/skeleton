@@ -9,6 +9,7 @@ Features:
 * Github gist integration
 * Regex find and replace within files
 * Arguments from command line ($0..$x)
+* Lua support, with ability to directly interface with the repository resolver.
 
 Basic file manipulatuion format:
 
@@ -31,6 +32,21 @@ Comments are prepended by # on its own line.
 
 Note it is based upon no spaces. If you want spaces in arguments, use %20 escaping.
 
-TODO
------
-Lua support
+Lua format:
+
+```lua
+-- Lua skeleton descriptor
+
+filesText = downloadRepoFile('repo@user myfile')
+stdfile.write('myfile', filesText)
+
+filesText = downloadFile('http://example.com/')
+
+stdio.writeln("Hi there! muhaha")
+
+for v in programArgs.args do
+    print("I have arg", v)
+end
+print("My project dir is", programArgs.projectdir)
+print("My repo is", programArgs.repo)
+```
