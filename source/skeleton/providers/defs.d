@@ -20,7 +20,7 @@ ubyte[] downloadFile(string url, string file) {
 			else
 				url ~= "/" ~ file;
 		}
-		
+
 		if (url !is null) {
 			download(url, (scope res){
 				ret = res.readAll();

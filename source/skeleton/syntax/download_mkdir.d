@@ -1,7 +1,6 @@
 ﻿module skeleton.syntax.download_mkdir;
 import skeleton.providers.defs;
 import skeleton.syntax.defs;
-import std.functional : memoize;
 import std.string : indexOf;
 
 enum confirmLineForDownloadMkdir = "# Simple skeleton descriptor";
