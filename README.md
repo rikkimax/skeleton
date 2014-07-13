@@ -8,7 +8,7 @@ Features:
 * Github repository integration
 * Github gist integration
 * Regex find and replace within files
-* Arguments from command line ($0..$x)
+* Arguments from command line ($0..$x) for simple format
 * Lua support, with ability to directly interface with the repository resolver.
 
 Basic file manipulatuion format:
