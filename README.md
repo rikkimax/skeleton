@@ -26,6 +26,7 @@ mkdir dir3%20/docs
 mynewfile relpath
 dlfile myfile repo@user/somedir/somefile.d
 rmdir byebye
+somefile http://example.com
 ```
 The first line is required. This is simply a way to say what format the descriptor is in.<br/>
 Comments are prepended by # on its own line.
