@@ -186,10 +186,11 @@ mkdir dir3%20/docs
 mynewfile relpath
 dlfile myfile repo@user/somedir/somefile.d
 rmdir byebye
+filo repo@user/somedir/filo2
 """, successful);
 
 	assert(successful);
-	assert(ops.length == 7);
+	assert(ops.length == 8);
 	assert(ops[0].path == "dir_here/");
 	assert(!ops[0].deleteNotCreateDir);
 												
@@ -210,6 +211,9 @@ rmdir byebye
 		
 	assert(ops[6].path == "byebye");
 	assert(ops[6].deleteNotCreateDir);
+		
+	assert(ops[7].path == "filo");
+	assert(ops[7].dlfile == "repo@user/somedir/filo2");
 }
 
 static this() {
