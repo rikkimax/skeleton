@@ -56,7 +56,7 @@ class DownloadMkDir : ISyntax {
 				}
 			} else if (op.regex !is null) {
 				import std.regex : regex, replaceAll;
-				ubyte[] fdata = ofile.read(op.path);
+				string fdata = cast(string)ofile.read(op.path);
 
 				// regex search replace
 				auto reg = regex(op.regex);
