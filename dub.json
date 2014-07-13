@@ -7,5 +7,6 @@
 		"vibe-d": ">=0.7.20"
 	},
 	"versions": ["VibeCustomMain"],
-	"license": "MIT"
+	"license": "MIT",
+	"mainSourceFile": "source/app.d"
 }
