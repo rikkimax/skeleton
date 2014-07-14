@@ -57,6 +57,9 @@ void configureLuaWithDependencies(LuaState state) {
 	LuaObject loadRepoFile(string moduleName) {
 		string got = cast(string)luaDownloadRepoFile(moduleName);
 
+		if (got is null && moduleName.length > 4 && moduleName[0 .. 4] == "http")
+			got = cast(string)downloadFile(moduleName, null);
+
 		if (got !is null) {
 			state["my_searcher_obj"] = got;
 			state.doString("package.preload['" ~ moduleName ~ "'] = loadstring(my_searcher_obj)");
