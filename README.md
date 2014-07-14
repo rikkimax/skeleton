@@ -7,6 +7,7 @@ Features:
 * Basic file manipulation format
 * Github repository integration
 * Github gist integration
+* Bitbucket repository support for both git and mercurial
 * Regex find and replace within files
 * Arguments from command line ($0..$x) for simple format
 * Lua support, with ability to directly interface with the repository resolver.
