@@ -3,8 +3,24 @@ import vibe.core.args;
 import vibe.core.log;
 import skeleton.syntax.defs;
 import skeleton.providers.defs;
+import std.process : environment;
+import std.file : getcwd, chdir, execute;
 
 void main(string[] args) {
+	version(Windows) {
+		if (environment.get("PWD", "") != "") {
+			// most likely e.g. cygwin *grumble*
+			auto value = execute(["cygpath", "-w", environment.get("PWD", "")]);
+			if (value.output[$-1] == '\n')
+				value.output.length--;
+			chdir(environment.get("CD", value.output));
+		} else {
+			chdir(environment.get("CD", getcwd()));
+		}
+	} else {
+		chdir(environment.get("PWD", environment.get("CD", getcwd())));
+	}
+
 	ProgramArgs config;
 
 	getOption("path", &config.projectdir, "Current working directory to use.");
@@ -12,7 +28,7 @@ void main(string[] args) {
 	finalizeCommandLineOptions(&config.args);
 
 	if (config.args.length == 1) {
-		logError("Must include the skeleton identifier\n$ dub run skeleton <project>@<user>[#<branch>][/<path>] [<args>..]");
+		logError("Must include the skeleton identifier\n$ dub run skeleton -- <project>@<user>[#<branch>][/<path>] [<args>..]");
 		return;
 	} else if (config.args.length > 1) {
 		config.repo = config.args[1];

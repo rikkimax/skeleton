@@ -40,7 +40,7 @@ class DownloadMkDir : ISyntax {
 					import vibe.d : download;
 					download(op.dlfile, op.path);
 					logDiagnostic("Downloading file %s to %s.", op.dlfile, op.path);
-				} else if (op.dlfile.indexOf("@")) {
+				} else if (op.dlfile.indexOf("@") >= 0) {
 					// its a repo, go searching for it in providers
 					IProvider provider2 = providerForRepo(op.dlfile);
 					if (provider2 !is null) {
