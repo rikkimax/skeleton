@@ -24,25 +24,78 @@
 module skeleton.syntax.defs;
 import skeleton.providers.defs;
 
+/**
+ * Syntax handler of a main file for Skeleton generation
+ */
 interface ISyntax {
+
+	/**
+	 * Given a file content, deteremine if this syntax handler can handle it
+	 * 
+	 * Params:
+	 * 		text	=	Text of the main file
+	 * 
+	 * Returns:
+	 * 		Can this syntax handler handle the text
+	 */
 	bool canHandle(string text);
+
+	/**
+	 * Executes the syntax for a given file and argument
+	 * 
+	 * Params:
+	 * 		provider	=	The provider to get files from if needed
+	 * 		text		=	Text of the main file
+	 * 		args		=	Arguments to configure the syntax handler
+	 */
 	void handleMainFile(IProvider provider, string text, ProgramArgs args);
 }
 
+/**
+ * Arguments for the syntax handler during execution
+ */
 struct ProgramArgs {
+
+	/**
+	 * Arguments to pass into the syntax handling mechanism
+	 */
 	string[] args;
+
+	/**
+	 * Change to directory
+	 */
 	string projectdir;
+
+	/**
+	 * The repository url
+	 */
 	string repo;
 }
 
-private {
+private __gshared {
 	ISyntax[] sProviders;
 }
 
+/**
+ * Registers a syntax handler
+ * 
+ * Params:
+ * 		sProvider	=	The provider to register
+ */
 void registerSyntax(ISyntax sProvider) {
 	sProviders ~= sProvider;
 }
 
+/**
+ * Gets a syntax handler given a provider and file text.
+ * 
+ * Params:
+ * 		provider	=	The provider of files to get from
+ * 		text		=	Text of the main file
+ * 
+ * Returns:
+ * 		The syntax provider or null if the main file cannot be handled
+ */
 ISyntax syntaxHandlerForRepo(IProvider provider, string text) {
 	foreach(sp; sProviders) {
 		if (sp.canHandle(text)) {

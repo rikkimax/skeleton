@@ -23,14 +23,68 @@
  */
 module skeleton.providers.defs;
 
+/**
+ * Generic interface to a provider of files
+ */
 interface IProvider {
+
+	/**
+	 * Does this repository location specified can be used by this provider?
+	 * 
+	 * Params:
+	 * 		repo	=	Repository location
+	 * 
+	 * Returns:
+	 * 		Can this repository be used by this provider
+	 */
 	bool canUse(string repo);
+
+	/**
+	 * Get the text of the main file for a skeleton project
+	 * 
+	 * Params:
+	 * 		repo	=	Repository location
+	 * 
+	 * Returns:
+	 * 		The repository main file text
+	 */
 	string mainFile(string repo);
 
+	/**
+	 * Downloads a given file from a repository
+	 * 
+	 * Params:
+	 * 		repo	=	Repository location
+	 * 		file	=	File to download
+	 * 
+	 * Returns:
+	 * 		The file contents if it exists
+	 */
 	ubyte[] downloadRepoFile(string repo, string file);
+
+	/**
+	 * Checks if a file exists in the given repository
+	 * 
+	 * Params:
+	 * 		repo	=	Repository location
+	 * 		file	=	File to download
+	 * 
+	 * Returns:
+	 * 		If the file exists
+	 */
 	bool hasFile(string repo, string file);
 }
 
+/**
+ * Downloads a file over http
+ * 
+ * Params:
+ * 		url		=	The url directory to download from
+ * 		file	=	The file to download
+ * 
+ * Returns:
+ * 		The file that is downloaded contents, otherwise null
+ */
 ubyte[] downloadFile(string url, string file) {
 	import vibe.stream.operations;
 	import vibe.inet.urltransfer;
@@ -54,14 +108,30 @@ ubyte[] downloadFile(string url, string file) {
 	return ret;
 }
 
-private {
+private __gshared {
 	IProvider[] providers;
 }
 
+/**
+ * Registers a provider to query for file downloads
+ * 
+ * Params:
+ * 		provider	=	The provider to be registered
+ */
 void registerProvider(IProvider provider) {
 	providers ~= provider;
 }
 
+
+/**
+ * Gets a provider based upon the repository name
+ * 
+ * Params:
+ * 		repo	=	Repository location
+ * 
+ * Returns:
+ * 		The provider for location or null
+ */
 IProvider providerForRepo(string repo) {
 	foreach(provider; providers) {
 		if (provider.canUse(repo))
