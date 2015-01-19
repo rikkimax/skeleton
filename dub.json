@@ -5,7 +5,8 @@
 	"authors": ["Richard Andrew Cattermole"],
 	"dependencies": {
 		"vibe-d": ">=0.7.22",
-		"luad": "~master"
+		"luad": "~master",
+		"de_util:core": ">=0.0.4"
 	},
 	"versions": ["VibeCustomMain"],
 	"license": "MIT",

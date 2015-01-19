@@ -145,7 +145,7 @@ void configureLuaWithDependencies(LuaState state) {
 }
 
 ubyte[] luaDownloadRepoFile(string repo) {
-	import skeleton.util : split;
+	import devisualization.util.core.text : split;
 
 	string[] spaces = repo.split(" ");
 	if (spaces.length != 2)

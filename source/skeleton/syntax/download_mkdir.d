@@ -36,7 +36,7 @@ class DownloadMkDir : ISyntax {
 	}
 
 	void handleMainFile(IProvider provider, string text, ProgramArgs args) {
-		import skeleton.util : replace;
+		import devisualization.util.core.text : replace;
 		import vibe.d : logError, logDiagnostic;
 		import std.conv : to;
 		import ofile = std.file;
@@ -113,7 +113,7 @@ class CmdOpDownloadMkdir {
 }
 
 CmdOpDownloadMkdir[] parseFileDownloadMkdir(string text, out bool successful) {
-	import skeleton.util;
+	import devisualization.util.core.text : split;
 	import vibe.textfilter.urlencode;
 	import std.string : toLower, strip, splitLines;
 

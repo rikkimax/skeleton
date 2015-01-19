@@ -67,7 +67,7 @@ class BitbucketProvider : IProvider {
 }
 
 protected {
-	import skeleton.util : split;
+	import devisualization.util.core.text : split;
 
 	pure string encodeBitbucketURL(string text, bool isGit=false) {
 		string[] temp;

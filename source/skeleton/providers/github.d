@@ -73,7 +73,7 @@ class GithubProvider : IProvider {
 }
 
 protected {
-	import skeleton.util : split;
+	import devisualization.util.core.text : split;
 
 	pure string encodeGithubURL(string text) {
 		string[] temp;
