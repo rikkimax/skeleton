@@ -57,9 +57,19 @@ class LuaSyn : ISyntax {
 	}
 
 	void handleMainFile(IProvider provider, string text, ProgramArgs args) {
+		import ofile = std.file;
+
 		static void picnic(LuaState state, in char[] text) {
 			assert(0, text);
 		}
+
+		string resetToCWD = ofile.getcwd;
+		if (args.projectdir !is null) {
+			if (!ofile.exists(args.projectdir))
+				ofile.mkdirRecurse(args.projectdir);
+			ofile.chdir(args.projectdir);
+		}
+		scope(exit)ofile.chdir(resetToCWD);
 		
 		auto lua = new LuaState;
 		lua.openLibs();

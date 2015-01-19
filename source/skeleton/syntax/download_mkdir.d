@@ -41,11 +41,14 @@ class DownloadMkDir : ISyntax {
 		import std.conv : to;
 		import ofile = std.file;
 
+		string resetToCWD = ofile.getcwd;
 		if (args.projectdir !is null) {
 			if (!ofile.exists(args.projectdir))
 				ofile.mkdirRecurse(args.projectdir);
 			ofile.chdir(args.projectdir);
 		}
+		scope(exit)ofile.chdir(resetToCWD);
+
 
 		foreach(i, string arg; args.args) {
 			text = text.replace("$" ~ to!string(i), arg);
