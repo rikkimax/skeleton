@@ -26,8 +26,8 @@ import vibe.core.args;
 import vibe.core.log;
 import skeleton.syntax.defs;
 import skeleton.providers.defs;
-import std.process : environment;
-import std.file : getcwd, chdir, execute;
+import std.process : environment, execute;
+import std.file : getcwd, chdir;
 
 void main(string[] args) {
 	version(Windows) {
